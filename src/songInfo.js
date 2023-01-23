@@ -51,8 +51,8 @@ var authOptions = {
     method: 'POST',
     headers: {
         'Content-Type' : 'application/x-www-form-urlencoded',
-        'Authorization' : 'Basic ' + window.btoa(process.env.SPOTIFY_CLIENT_ID.toString() + ':' + 
-        process.env.SPOTIFY_CLIENT_SECRET.toString()),
+        'Authorization' : 'Basic ' + window.btoa(process.env.REACT_APP_SPOTIFY_CLIENT_ID.toString() + ':' + 
+        process.env.REACT_APP_SPOTIFY_CLIENT_SECRET.toString()),
         'Accept': 'application/json'
     },
     body: 'grant_type=client_credentials'
