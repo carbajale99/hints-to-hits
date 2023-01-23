@@ -1,8 +1,9 @@
 import * as React from 'react'
 import wrongIcon from './assets/wrong.png'
 import { delay, motion } from 'framer-motion'
-// import { GiInfo } from "react-icons/gi";
+import { GiInfo } from "react-icons/gi";
 import './App.css'
+import { GenIcon } from '@react-icons/all-files';
 
 const filterTrackName = (track) =>{
   track = track.split('(')[0];
@@ -107,7 +108,7 @@ const App = (props) =>{
 const InfoButton = (props) =>{
   return(
     <div className='info-container'> 
-      <button className='info-button' onClick={props.handleClick}>info </button>
+      <button className='info-button' onClick={props.handleClick}><GiInfo size={25}/> </button>
       <InfoText active={props.iActive}/>
     </div>
   );
