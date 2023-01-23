@@ -15,8 +15,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "predeploy": "npm run build:local",
+    "deploy": "gh-pages -d build:local",
     "start": "env-cmd -f .env.local react-scripts start",
     "build:local": " env-cmd -f .env.local react-scripts build",
     "test": "react-scripts test",
