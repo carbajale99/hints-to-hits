@@ -143,7 +143,7 @@ const Guess = (props) =>{
 
       <input id='guess-input' type="text" onChange={props.onGuess}/>
       
-      <input id='submit-button' type='button' disabled={props.bStatus} onClick={props.onGuessClick}>Submit Guess!</input>
+      <button id='submit-button' type='button' disabled={props.bStatus} onClick={props.onGuessClick}>Submit Guess!</button>
 
 
     </div>
