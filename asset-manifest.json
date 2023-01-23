@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/hints-to-hits/static/css/main.14bba084.css",
-    "main.js": "/hints-to-hits/static/js/main.0902991e.js",
-    "static/media/GothamLight.ttf": "/hints-to-hits/static/media/GothamLight.03e7ff609ba3bf798fa4.ttf",
-    "static/media/GothamBold.ttf": "/hints-to-hits/static/media/GothamBold.108854bb27dee2dce854.ttf",
-    "index.html": "/hints-to-hits/index.html",
-    "main.14bba084.css.map": "/hints-to-hits/static/css/main.14bba084.css.map",
-    "main.0902991e.js.map": "/hints-to-hits/static/js/main.0902991e.js.map"
+    "main.css": "/static/css/main.d0a175ed.css",
+    "main.js": "/static/js/main.0902991e.js",
+    "static/media/GothamLight.ttf": "/static/media/GothamLight.03e7ff609ba3bf798fa4.ttf",
+    "static/media/GothamBold.ttf": "/static/media/GothamBold.108854bb27dee2dce854.ttf",
+    "index.html": "/index.html",
+    "main.d0a175ed.css.map": "/static/css/main.d0a175ed.css.map",
+    "main.0902991e.js.map": "/static/js/main.0902991e.js.map"
   },
   "entrypoints": [
-    "static/css/main.14bba084.css",
+    "static/css/main.d0a175ed.css",
     "static/js/main.0902991e.js"
   ]
 }
