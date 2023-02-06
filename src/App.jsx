@@ -1,17 +1,9 @@
 import * as React from 'react'
 import wrongIcon from './assets/wrong.png'
-import { delay, motion } from 'framer-motion'
-import './App.css'
-
+import { motion } from 'framer-motion'
+import { filterTrackName } from './songInfo'
 import {GiInfo} from "react-icons/gi"
-
-const filterTrackName = (track) =>{
-  track = track.split('(')[0];
-  track = track.toLowerCase();
-  track = track.replace(/\s+/g, "");
-  track = track.replace(/[^a-zA-Z0-9]/g, '');
-  return track;
-};
+import './App.css'
 
 
 const App = (props) =>{
@@ -25,15 +17,28 @@ const App = (props) =>{
   const [listPadding, setListPadding] = React.useState(0);
   const [gameOutcome, setGameOutcome] = React.useState('');
   const [resultColor, setResultColor] = React.useState('#e24767');
-  const [infoActive, setInfoActive] = React.useState({active: false, initialized: false});
+  const [infoActive, setInfoActive] = React.useState({active:true, initialized: false});
+  const [gameStarted, setGameStarted] = React.useState("visible");
 
-  
+
+  /**
+   * Sets the user guess in real time
+   * @param {*} event the button clicks
+   */
   const handleGuess = (event) =>{
     setUserGuess(event.target.value);
   };
 
+  /**
+   * 
+   */
   const handleInfoClick = () => {
-    setInfoActive({active: !infoActive.active, initialized: true});
+    setInfoActive({active: !infoActive.active, initialized:true});
+  };
+
+  const handleStartGame = () => {
+    setInfoActive({active: false, initialized:true});
+    setGameStarted('none');
   };
   
   const handleGuessClick = () => {
@@ -42,13 +47,13 @@ const App = (props) =>{
     var winStatus = (filterTrackName(userGuess) === props.answer ? true : null);
     var loseStatus = (guessCount >= 4? false : null);
 
-    if(winStatus == true){
+    if(winStatus === true){
       setGameOutcome('Winner!!!\nThe correct answer is');
       setButtonStatus(winStatus);
       setResultColor('#1DB954');
     }
     else{
-      if (loseStatus == false){
+      if (loseStatus === false){
         setGameOutcome('Damn:/ Super wrong.\nThe correct answer is')
         setButtonStatus(!loseStatus)
       }
@@ -77,7 +82,7 @@ const App = (props) =>{
   return (
     <div className='app-container'>
 
-      <InfoButton iActive={infoActive} handleClick={handleInfoClick}/>
+      <InfoButton isActive={infoActive} handleClick={handleInfoClick} hasStarted={gameStarted} startGame={handleStartGame}/>
 
       <h1 className='main-title'>{title}</h1>
 
@@ -95,15 +100,21 @@ const InfoButton = (props) =>{
   return(
     <div className='info-container'> 
       <button className='info-button' onClick={props.handleClick}> <GiInfo size={25} /> </button>
-      <InfoText active={props.iActive}/>
+      <InfoText active={props.isActive} startGame={props.startGame} hasStarted={props.hasStarted}/>
     </div>
+  );
+};
+
+const StartGameButton = (props) =>{
+  return(
+    <input id='s-button' type='button' style={{display: props.hasStarted}} onClick={props.startGame} value="Start Playing!"/>
   );
 };
 
 const InfoText = (props) => {
 
-  var scaling = {}
-  props.active.initialized ? (props.active.active ? scaling = {init: 0, anim: 1}: scaling = {init: 1, anim:0 }) : scaling = {init: 0, anim: 0};
+  // var scaling ={};
+var scaling = props.active.initialized ? (props.active.active ? {init: 0, anim: 1} : {init: 1, anim:0}) : {};
 
   return(
     <motion.div className='info-text-container'
@@ -131,6 +142,9 @@ const InfoText = (props) => {
       <p>
         This website was made using the Spotify API with client credentials
       </p>
+
+      <StartGameButton startGame={props.startGame} active={props.active} hasStarted={props.hasStarted}/>
+
     </motion.div>
   );
 }
@@ -143,7 +157,7 @@ const Guess = (props) =>{
 
       <input id='guess-input' type="text" onChange={props.onGuess}/>
       
-      <input id='submit-button' type='button' disabled={props.bStatus} onClick={props.onGuessClick} value="Submit Guess!"/>
+      <input id='s-button' type='button' disabled={props.bStatus} onClick={props.onGuessClick} value="Submit Guess!"/>
 
 
     </div>

@@ -46,6 +46,13 @@ function convertMillisToMin(milli){
   };
     
     
+export const filterTrackName = (track) =>{
+    track = track.split('(')[0];
+    track = track.toLowerCase();
+    track = track.replace(/\s+/g, "");
+    track = track.replace(/[^a-zA-Z0-9]/g, '');
+    return track;
+};
 
 var authOptions = {
     method: 'POST',
@@ -57,6 +64,7 @@ var authOptions = {
     },
     body: 'grant_type=client_credentials'
 };
+
 
 var hintList = [];
 

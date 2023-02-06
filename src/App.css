@@ -95,7 +95,7 @@
   font-size: 16px;
 }
 
-#submit-button {
+#s-button {
 
   border-radius: 8px;
   border: 1px solid transparent;
@@ -108,11 +108,11 @@
   margin: 0 auto;
   color: rgba(255, 255, 255, 0.87);
 }
-#submit-button:hover {
+#s-button:hover {
   border-color: #1DB954;
 }
-#submit-button:focus,
-#submit-button:focus-visible {
+#s-button:focus,
+#s-button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 

@@ -1,16 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
-import {getSongData} from './songInfo'
+import {getSongData, filterTrackName} from './songInfo'
 import './index.css'
-
-const filterTrackName = (track) =>{
-  track = track.split('(')[0];
-  track = track.toLowerCase();
-  track = track.replace(/\s+/g, "");
-  track = track.replace(/[^a-zA-Z0-9]/g, '');
-  return track;
-};
 
 (async () => {
   const hints = await getSongData();
