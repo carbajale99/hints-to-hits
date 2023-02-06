@@ -127,16 +127,30 @@ const InfoButton = (props) =>{
   );
 };
 
+/**
+ * 
+ * @param {object} props Component props
+ * @param {string} props.hasStarted string that indicates the visibility of the start button
+ * @param {function} props.startGame Handles starting the game by removing the start button and closing the initial info text
+ * @returns {JSX.Element} The start button
+ */
 const StartGameButton = (props) =>{
   return(
     <input id='s-button' type='button' style={{display: props.hasStarted}} onClick={props.startGame} value="Start Playing!"/>
   );
 };
 
+/**
+ * 
+ * @param {object} props Component props 
+ * @param {object} props.active The current status of the info text, whether it has been initialized or not and wheter it is open or not 
+ * @param {string} props.hasStarted string that indicates the visibility of the start button
+ * @param {function} props.startGame Handles starting the game by removing the start button and closing the initial info text
+ * @returns {JSX.Element} The text box that has info about the game and its properties
+ */
 const InfoText = (props) => {
 
   var scaling = props.active.initialized ? (props.active.active ? {init: 0, anim: 1} : {init: 1, anim:0}) : {};
-
   return(
     <motion.div className='info-text-container'
     initial={{scale:scaling.init}}
@@ -148,39 +162,35 @@ const InfoText = (props) => {
         Welcome to Hints to Hits. In this game, a random popular song will be chosen and it's your job to figure out what it is.
         Everytime you guess you will be given a new hint that will lead you closer to the answer. You get 5 tries before you lose.
       </p>
-
       <p>The hints are given in this order:</p>
-
       <ul style={{ listStyle: 'none', padding: 0}}>
         <li>Song Duration</li>
         <li>Year of Release</li>
         <li>Artist Name</li>
         <li>Album Name</li>
       </ul>
-
       <p>-------------------------------------</p>
-
       <p>
         This website was made using the Spotify API with client credentials
       </p>
-
       <StartGameButton startGame={props.startGame} active={props.active} hasStarted={props.hasStarted}/>
-
     </motion.div>
   );
 }
 
+/**
+ * 
+ * @param {object} props Component props 
+ * @param {function} props.onGuess Handles the change of the current guess
+ * @param {boolean} props.bStatus The current status of the guess button
+ * @param {boolean} props.onGuessClick Handles the player guess
+ * @returns {JSX.Element} The component that contains where the player inputs their guess
+ */
 const Guess = (props) =>{
-
-  
   return(
     <div className='guess-container'>
-
       <input id='guess-input' type="text" onChange={props.onGuess}/>
-      
       <input id='s-button' type='button' disabled={props.bStatus} onClick={props.onGuessClick} value="Submit Guess!"/>
-
-
     </div>
   );
 };
