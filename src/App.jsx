@@ -5,7 +5,15 @@ import { filterTrackName } from './songInfo'
 import {GiInfo} from "react-icons/gi"
 import './App.css'
 
-
+/**
+ * 
+ * @param {object} props Component props 
+ * @param {string} props.displayedAnswer The unfiltered track name to be displayed when the game is over 
+ * @param {string} props.answer The filtered track name to be used to check if the players guess is right
+ * @param {Array} props.finalHints The hints to be given to the player as they guess
+ * @param {img} props.albumCover The album cover of the album the correct song is in
+ * @returns {JSX.Element} The final application with all its components
+ */
 const App = (props) =>{
   const title = 'Hints to Hits!!!';
   
@@ -30,34 +38,48 @@ const App = (props) =>{
   };
 
   /**
-   * 
+   * Open and closes the info text
    */
   const handleInfoClick = () => {
     setInfoActive({active: !infoActive.active, initialized:true});
   };
 
+  /**
+   * Closes the info text and starts the game
+   */
   const handleStartGame = () => {
     setInfoActive({active: false, initialized:true});
     setGameStarted('none');
   };
   
+  /**
+   * Submits the user guess to see if its correct, wrong and the current guess
+   */
   const handleGuessClick = () => {
 
     console.log(filterTrackName(userGuess));
+
+    //stores the current win status by checking the filtered guess with the answer
     var winStatus = (filterTrackName(userGuess) === props.answer ? true : null);
+
+    //stores the current lose status by checking if the amount of guesses exceeds 4
     var loseStatus = (guessCount >= 4? false : null);
 
+    //Checks whether the user has won or not and handles how to progress whether it has or not
     if(winStatus === true){
+      //The player has won and the appropriate components have been set to show the winner result
       setGameOutcome('Winner!!!\nThe correct answer is');
       setButtonStatus(winStatus);
       setResultColor('#1DB954');
     }
     else{
       if (loseStatus === false){
+        //The player has lost and the appropriate components have been set to show the loser result
         setGameOutcome('Damn:/ Super wrong.\nThe correct answer is')
         setButtonStatus(!loseStatus)
       }
       else{
+        // The player has guessed wrong and visuals popped up to indicate being wrong
         setWrongLoad(false);
 
         setCount(guessCount+1);
@@ -68,34 +90,34 @@ const App = (props) =>{
           setWrongLoad(true);
         },1200);
 
-
+        //this adds a hint after a set amount of time
         setTimeout(() =>{
           setCurrentHintList([...currentHintList, props.finalHints[guessCount]]);
         },1200);
-
-
       }
     }
   }
   
-  
   return (
     <div className='app-container'>
-
       <InfoButton isActive={infoActive} handleClick={handleInfoClick} hasStarted={gameStarted} startGame={handleStartGame}/>
-
       <h1 className='main-title'>{title}</h1>
-
       <Guess songGuess={userGuess} onGuess={handleGuess} bStatus={buttonStatus} onGuessClick={handleGuessClick}count={guessCount}/>
       { buttonStatus ? (<GameOverPopUp aCover={props.albumCover}outcome={gameOutcome} unFiltered={props.displayedAnswer} answerColor={resultColor}/>) : (wrongLoad ? null : <WrongPopUp count={guessCount}/>) }
-      
       <HintsList list={currentHintList} count={guessCount} liPadding={listPadding}/>
-    
     </div>
-
   );
 };
 
+/**
+ * 
+ * @param {object} props Components props
+ * @param {boolean} props.isActive The current status of the info text
+ * @param {function} props.handleClick Handles activiting the info text by pressing the button
+ * @param {string} props.hasStarted The current visibility of the stat button
+ * @param {function} props Handles starting the game
+ * @returns {JSX.Element} The info button that toggles the info text
+ */
 const InfoButton = (props) =>{
   return(
     <div className='info-container'> 
@@ -113,8 +135,7 @@ const StartGameButton = (props) =>{
 
 const InfoText = (props) => {
 
-  // var scaling ={};
-var scaling = props.active.initialized ? (props.active.active ? {init: 0, anim: 1} : {init: 1, anim:0}) : {};
+  var scaling = props.active.initialized ? (props.active.active ? {init: 0, anim: 1} : {init: 1, anim:0}) : {};
 
   return(
     <motion.div className='info-text-container'
